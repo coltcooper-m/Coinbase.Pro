@@ -9,7 +9,7 @@ namespace Coinbase.Tests.WebSocketTests
    public class EventModelTests
    {
       [Test]
-      public async Task subscriptions()
+      public void Subscriptions()
       {
          var json = @"{
     ""type"": ""subscriptions"",
@@ -44,7 +44,7 @@ namespace Coinbase.Tests.WebSocketTests
       }
 
       [Test]
-      public async Task hb()
+      public void Hb()
       {
          var json = @"{
     ""type"": ""heartbeat"",
@@ -59,7 +59,7 @@ namespace Coinbase.Tests.WebSocketTests
       }
 
       [Test]
-      public async Task ticker()
+      public void Ticker()
       {
          var json = @"{
     ""type"": ""ticker"",
@@ -81,7 +81,7 @@ namespace Coinbase.Tests.WebSocketTests
       }
 
       [Test]
-      public async Task snapshot()
+      public void Snapshot()
       {
          var json = @"{
     ""type"": ""snapshot"",
@@ -101,7 +101,7 @@ namespace Coinbase.Tests.WebSocketTests
       }
 
       [Test]
-      public async Task l2update()
+      public void L2update()
       {
          var json = @"{
     ""type"": ""l2update"",
@@ -126,7 +126,7 @@ namespace Coinbase.Tests.WebSocketTests
       }
 
       [Test]
-      public async Task received()
+      public void Received()
       {
          var json = @"{
     ""type"": ""received"",
@@ -148,7 +148,7 @@ namespace Coinbase.Tests.WebSocketTests
       }
 
       [Test]
-      public async Task open()
+      public void Open()
       {
          var json = @"{
     ""type"": ""open"",
@@ -169,7 +169,7 @@ namespace Coinbase.Tests.WebSocketTests
       }
 
       [Test]
-      public async Task done()
+      public void Done()
       {
          var json = @"{
     ""type"": ""done"",
@@ -191,7 +191,7 @@ namespace Coinbase.Tests.WebSocketTests
       }
 
       [Test]
-      public async Task match()
+      public void Match()
       {
          var json = @"{
     ""type"": ""match"",
@@ -214,7 +214,7 @@ namespace Coinbase.Tests.WebSocketTests
       }
 
       [Test]
-      public async Task change()
+      public void Change()
       {
          var json = @"{
     ""type"": ""change"",
@@ -236,7 +236,7 @@ namespace Coinbase.Tests.WebSocketTests
       }
 
       [Test]
-      public async Task change2()
+      public void Change2()
       {
          var json = @"{
     ""type"": ""change"",
@@ -258,7 +258,7 @@ namespace Coinbase.Tests.WebSocketTests
       }
 
       [Test]
-      public async Task activate()
+      public void Activate()
       {
          var json = @"{
   ""type"": ""activate"",

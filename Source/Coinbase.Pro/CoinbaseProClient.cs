@@ -107,10 +107,7 @@ namespace Coinbase.Pro
       {
          var webProxy = new WebProxy(proxyUrl, BypassOnLocal: false);
 
-         this.Configure(cf =>
-            {
-               cf.HttpClientFactory = new DebugProxyFactory(webProxy);
-            });
+         this.Configure(cf => cf.HttpClientFactory = new DebugProxyFactory(webProxy));
 
          return this;
       }

@@ -22,6 +22,7 @@ namespace Coinbase.Pro
       /// <param name="limit">Number of results per request. Maximum 100. (default 100)</param>
       /// <param name="before">Request page before (newer) this pagination id.</param>
       /// <param name="after">Request page after (older) this pagination id.</param>
+      /// <param name="cancellationToken"></param>
       Task<PagedResponse<Order>> GetAllOrdersAsync(
          string status = "all",
          string productId = null,
@@ -72,6 +73,7 @@ namespace Coinbase.Pro
       ///    status updates.The client_oid will NOT be used after the received message is sent.
       ///    The server-assigned order id is also returned as the id field to this
       ///    HTTP POST request.</param>
+      /// <param name="cancellationToken"></param>
       Task<Order> PlaceMarketOrderAsync(
          OrderSide side,
          string productId, decimal amount, AmountType amountType = AmountType.UseSize,
@@ -105,6 +107,7 @@ namespace Coinbase.Pro
       ///    status updates.The client_oid will NOT be used after the received message is sent.
       ///    The server-assigned order id is also returned as the id field to this
       ///    HTTP POST request.</param>
+      /// <param name="cancellationToken"></param>
       Task<Order> PlaceLimitOrderAsync(
          OrderSide side,
          string productId, decimal size, decimal limitPrice,
@@ -143,6 +146,7 @@ namespace Coinbase.Pro
       ///    status updates.The client_oid will NOT be used after the received message is sent.
       ///    The server-assigned order id is also returned as the id field to this
       ///    HTTP POST request.</param>
+      /// <param name="cancellationToken"></param>
       Task<Order> PlaceLimitOrderAsync(
          OrderSide side,
          string productId, decimal size, decimal limitPrice, GoodTillTime cancelAfter,
@@ -174,6 +178,7 @@ namespace Coinbase.Pro
       ///    status updates.The client_oid will NOT be used after the received message is sent.
       ///    The server-assigned order id is also returned as the id field to this
       ///    HTTP POST request.</param>
+      /// <param name="cancellationToken"></param>
       Task<Order> PlaceStopOrderAsync(
          OrderSide side,
          string productId, decimal amount, AmountType amountType, decimal stopPrice,
@@ -192,6 +197,8 @@ namespace Coinbase.Pro
       /// <param name="stopPrice">The market price that will trigger this order to execute.</param>
       /// <param name="limitPrice">The maximum price you're willing to pay when the order executes
       ///    or the minimum price you're willing to sell when the order executes.</param>
+      /// <param name="clientOid"></param>
+      /// <param name="cancellationToken"></param>
       Task<Order> PlaceStopLimitOrderAsync(
          OrderSide side,
          string productId, decimal size, decimal stopPrice, decimal limitPrice,
@@ -277,14 +284,8 @@ namespace Coinbase.Pro
          return this.Orders.PlaceOrderAsync(mo, cancellationToken);
       }
 
-      Task<Order> IOrdersEndpoint.PlaceLimitOrderAsync(
-         OrderSide side,
-         string productId, decimal size, decimal limitPrice, TimeInForce timeInForce,
-         bool postOnly,
-         Guid? clientOid,
-         CancellationToken cancellationToken)
+      Task<Order> IOrdersEndpoint.PlaceLimitOrderAsync(OrderSide side, string productId, decimal size, decimal limitPrice, TimeInForce timeInForce, GoodTillTime goodTillTime, bool postOnly, Guid? clientOid, CancellationToken cancellationToken)
       {
-
          var lo = new CreateLimitOrder
          {
             Side = side,
@@ -293,6 +294,7 @@ namespace Coinbase.Pro
             Price = limitPrice,
             Size = size,
             TimeInForce = timeInForce,
+            CancelAfter = goodTillTime,
             PostOnly = postOnly,
             ClientOid = clientOid
          };
@@ -343,7 +345,6 @@ namespace Coinbase.Pro
          else if (amountType == AmountType.UseSize)
             mo.Size = amount;
 
-
          if (side == OrderSide.Buy)
             mo.Stop = StopType.Entry;
          else if (side == OrderSide.Sell)
@@ -352,10 +353,7 @@ namespace Coinbase.Pro
          return this.Orders.PlaceOrderAsync(mo, cancellationToken);
       }
 
-      Task<Order> IOrdersEndpoint.PlaceStopLimitOrderAsync(
-         OrderSide side,
-         string productId, decimal size, decimal stopPrice, decimal limitPrice,
-         Guid? clientOid, CancellationToken cancellationToken)
+      Task<Order> IOrdersEndpoint.PlaceStopLimitOrderAsync(OrderSide side, string productId, decimal size, decimal stopPrice, decimal limitPrice, Guid? clientOid, CancellationToken cancellationToken)
       {
          var lo = new CreateLimitOrder
          {
@@ -375,7 +373,6 @@ namespace Coinbase.Pro
 
          return this.Orders.PlaceOrderAsync(lo, cancellationToken);
       }
-
 
       Task<Order> IOrdersEndpoint.PlaceOrderAsync(CreateOrder o, CancellationToken cancellationToken)
       {

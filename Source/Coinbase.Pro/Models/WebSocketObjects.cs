@@ -7,7 +7,6 @@ using Newtonsoft.Json.Linq;
 
 namespace Coinbase.Pro.Models
 {
-
    [JsonConverter(typeof(StringEnumConverter))]
    public enum MessageType
    {
@@ -50,10 +49,6 @@ namespace Coinbase.Pro.Models
       [JsonProperty("product_ids")]
       public List<string> ProductIds { get; set; }
    }
-
-
-
-
 
    public class Event : Json
    {
@@ -111,7 +106,6 @@ namespace Coinbase.Pro.Models
       [JsonProperty("best_ask")]
       public decimal? BestAsk { get; set; }
    }
-
 
    public partial class SnapshotEvent : Event
    {
@@ -197,8 +191,6 @@ namespace Coinbase.Pro.Models
       }
    }
 
-
-
    public partial class ReceivedEvent : Event
    {
       [JsonProperty("time")]
@@ -231,7 +223,6 @@ namespace Coinbase.Pro.Models
       [JsonProperty("client_oid", NullValueHandling = NullValueHandling.Ignore)]
       public Guid? ClientOid { get; set; }
    }
-
 
    public partial class AuthenticatedEvent : Event
    {
@@ -266,7 +257,6 @@ namespace Coinbase.Pro.Models
       public OrderSide Side { get; set; }
    }
 
-
    public partial class DoneEvent : AuthenticatedEvent
    {
       [JsonProperty("time")]
@@ -293,7 +283,6 @@ namespace Coinbase.Pro.Models
       [JsonProperty("remaining_size")]
       public decimal RemainingSize { get; set; }
    }
-
 
    public partial class MatchEvent : AuthenticatedEvent
    {
@@ -390,6 +379,4 @@ namespace Coinbase.Pro.Models
       [JsonProperty("private")]
       public bool Private { get; set; }
    }
-
-
 }

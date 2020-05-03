@@ -43,8 +43,8 @@ namespace Coinbase.Pro.Models
 
       [JsonProperty("stop_price", NullValueHandling = NullValueHandling.Ignore)]
       public decimal? StopPrice { get; set; }
-
    }
+
    public partial class CreateLimitOrder : CreateOrder
    {
       [JsonProperty("price")]
@@ -98,16 +98,19 @@ namespace Coinbase.Pro.Models
    public enum AmountType
    {
       /// <summary>
+      /// <para>
       /// Size will limit the cryptocurrency amount transacted. The size must
       /// be greater than the base_min_size for the product and no larger
       /// than the base_max_size. The size can be in any increment of the
       /// base currency (BTC for the BTC-USD product), which includes satoshi
       /// units. size indicates the amount of BTC (or base currency) to buy or sell.
-      ///
+      /// </para>
+      /// <para>
       /// A market sell order can also specify the funds. If funds is specified,
       /// it will limit the sell to the amount of funds specified. You can
       /// use funds with sell orders to limit the amount of quote
       /// currency funds received.
+      /// </para>
       /// </summary>
       UseSize,
 
@@ -124,15 +127,16 @@ namespace Coinbase.Pro.Models
       /// </summary>
       UseFunds,
    }
-   
 
    [JsonConverter(typeof(StringEnumConverter))]
    public enum GoodTillTime
    {
       [EnumMember(Value = "min")]
       Min,
+
       [EnumMember(Value = "hour")]
       Hour,
+
       [EnumMember(Value = "day")]
       Day
    }
@@ -256,7 +260,6 @@ namespace Coinbase.Pro.Models
       public string CryptoAddress { get; set; }
    }
 
-
    public partial class CreateConversion
    {
       [JsonProperty("from")]
@@ -273,6 +276,7 @@ namespace Coinbase.Pro.Models
    {
       [JsonProperty("type")]
       public ReportType Type { get; set; }
+
       /// <summary>
       /// Starting date for the report (inclusive)
       /// </summary>
@@ -310,15 +314,13 @@ namespace Coinbase.Pro.Models
       public string AccountId { get; set; }
    }
 
-
    [JsonConverter(typeof(StringEnumConverter))]
    public enum ReportFormat
    {
       [EnumMember(Value = "pdf")]
       Pdf,
+
       [EnumMember(Value = "csv")]
       Csv
    }
-
-
 }

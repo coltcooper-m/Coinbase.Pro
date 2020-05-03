@@ -8,9 +8,6 @@ using FluentAssertions;
 using Flurl;
 using NUnit.Framework;
 
-//using Refit;
-//using RichardSzalay.MockHttp;
-
 namespace Coinbase.Tests.EndpointTests
 {
    [TestFixture]
@@ -21,11 +18,11 @@ namespace Coinbase.Tests.EndpointTests
       public override void BeforeEachTest()
       {
          base.BeforeEachTest();
-         this.client = new CoinbaseProClient();
+         client = new CoinbaseProClient();
       }
 
       [Test]
-      public async Task can_get_currencies()
+      public async Task Can_Get_Currencies()
       {
          server.RespondWith(Examples.Currencies);
 
@@ -41,7 +38,7 @@ namespace Coinbase.Tests.EndpointTests
       }
 
       [Test]
-      public async Task can_get_stats()
+      public async Task Can_Get_Stats()
       {
          server.RespondWith(Examples.StatsJson);
 
@@ -56,7 +53,7 @@ namespace Coinbase.Tests.EndpointTests
       }
 
       [Test]
-      public async Task can_get_candles()
+      public async Task Can_Get_Candles()
       {
          //http.ExpectCall(HttpMethod.Get, "/products/BTC-USD/candles")
          //   .RespondJson(HttpStatusCode.OK, Examples.HistoricRatesJson);
@@ -64,7 +61,6 @@ namespace Coinbase.Tests.EndpointTests
          server.RespondWith(Examples.HistoricRatesJson);
          var start = DateTime.Now.AddMinutes(-5);
          var end = DateTime.Now;
-
 
          var r = await client.MarketData.GetHistoricRatesAsync("BTC-USD", start, end, 60);
 
@@ -83,7 +79,7 @@ namespace Coinbase.Tests.EndpointTests
       }
 
       [Test]
-      public async Task can_get_trades()
+      public async Task Can_Get_Trades()
       {
          //http.ExpectCall(HttpMethod.Get, "/products/BTC-USD/trades")
          //   .RespondJson(HttpStatusCode.OK, Examples.TradesJson);
@@ -110,7 +106,7 @@ namespace Coinbase.Tests.EndpointTests
       }
 
       [Test]
-      public async Task can_make_trades_paged()
+      public async Task Can_Make_Trades_Paged()
       {
          SetupServerPagedResponse(Examples.TradesJson);
 
@@ -127,7 +123,7 @@ namespace Coinbase.Tests.EndpointTests
       }
 
       [Test]
-      public async Task can_get_ticker()
+      public async Task Can_Get_Ticker()
       {
          server.RespondWith(Examples.TickerJson);
 
@@ -148,7 +144,7 @@ namespace Coinbase.Tests.EndpointTests
       }
 
       [Test]
-      public async Task can_get_orderbook_l3()
+      public async Task Can_Get_Orderbook_l3()
       {
          server.RespondWith(Examples.OrderBookLevel3Json);
 
@@ -166,7 +162,7 @@ namespace Coinbase.Tests.EndpointTests
       }
 
       [Test]
-      public async Task can_get_orderbook_l2()
+      public async Task Can_Get_Orderbook_l2()
       {
          server.RespondWith(Examples.OrderBookLevel2Json);
 
@@ -183,7 +179,7 @@ namespace Coinbase.Tests.EndpointTests
       }
 
       [Test]
-      public async Task can_get_orderbook()
+      public async Task Can_Get_Orderbook()
       {
          server.RespondWith(Examples.OrderBookLevel1Json);
 
@@ -207,7 +203,7 @@ namespace Coinbase.Tests.EndpointTests
       }
 
       [Test]
-      public async Task can_get_products()
+      public async Task Can_Get_Products()
       {
          server.RespondWith(Examples.ProductsJson);
         
@@ -242,7 +238,7 @@ namespace Coinbase.Tests.EndpointTests
       protected CoinbaseProClient client;
 
       [SetUp]
-      public void BeforeEachTest()
+      public new void BeforeEachTest()
       {
          client = new CoinbaseProClient(new Config{ ApiKey = "key", Secret = "secret", Passphrase = "satoshi", UseTimeApi = false});
       }
